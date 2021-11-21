@@ -1,0 +1,20 @@
+version: "3"
+networks:
+  web:
+    driver: bridge
+
+services:
+  web:
+    image: "bearzlh/openresty-php74:v1.0"
+    volumes:
+      - "${PROJECT_PATH}/web:/var/www/"
+      - "${PROJECT_PATH}/nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+      - "${PROJECT_PATH}/nginx/servers:/usr/local/openresty/nginx/conf/servers"
+      - "${PROJECT_PATH}/php/extension.ini:/usr/local/etc/php/conf.d/extension.ini"
+    ports:
+      - "80:80"
+    tty: true
+    container_name: web
+    hostname: web
+    networks:
+      - web
